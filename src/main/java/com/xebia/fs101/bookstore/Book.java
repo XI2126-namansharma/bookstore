@@ -4,19 +4,21 @@ import java.time.LocalDate;
 
 public class Book {
 
+    //Search parameter
     private final String author;
     private final String title;
+    private final Genre genre;
+    private final Language language;
+
+    //Extra details
     private final LocalDate publishedOn;
     private final int pages;
-    private final String genre;
     private final String isbn;
-    private final String language;
-
 
     public Book(String author, String title,
                 LocalDate publishedOn, int pages,
-                String genre, String isbn,
-                String language) {
+                Genre genre, String isbn,
+                Language language) {
         this.author = author;
         this.title = title;
         this.publishedOn = publishedOn;
@@ -42,7 +44,7 @@ public class Book {
         return pages;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
@@ -50,7 +52,7 @@ public class Book {
         return isbn;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
@@ -61,5 +63,10 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
                 '}';
+    }
+
+    public boolean matches(BookSearchClass searchSpec) {
+        BookSearchClass bookSearchClass = new BookSearchClass.Builder(this).build();
+        return bookSearchClass.matches(searchSpec);
     }
 }
